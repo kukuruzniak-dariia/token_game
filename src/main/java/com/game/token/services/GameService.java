@@ -9,4 +9,6 @@ public interface GameService {
     Game start();
 
     void moveToken(Game game, int i);
+
+    int rollDie();
 }

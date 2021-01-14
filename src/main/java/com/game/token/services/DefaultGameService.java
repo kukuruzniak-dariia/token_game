@@ -24,6 +24,11 @@ public class DefaultGameService implements GameService {
         }
     }
 
+    @Override
+    public int rollDie() {
+        return 0;
+    }
+
     private boolean checkIfTokenCanBeMoved(Token token, int spaces) {
         return token.getPosition() + spaces <= LAST_POSITION;
     }
