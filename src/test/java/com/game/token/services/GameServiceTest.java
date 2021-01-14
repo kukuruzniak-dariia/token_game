@@ -23,6 +23,7 @@ public class GameServiceTest {
         Game game = gameService.start();
 
         assertNotNull(game.getToken());
+        assertEquals(Status.IN_PROGRESS, game.getStatus());
         assertEquals(FIRST_SQUARE, game.getToken().getPosition());
     }
 

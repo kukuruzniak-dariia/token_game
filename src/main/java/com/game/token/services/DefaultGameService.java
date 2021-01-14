@@ -10,8 +10,9 @@ public class DefaultGameService implements GameService {
 
     @Override
     public Game start() {
-        Token token = new Token(INITIAL_POSITION);
-        return new Game(token);
+        Game game = new Game(new Token(INITIAL_POSITION));
+        game.setStatus(Status.IN_PROGRESS);
+        return game;
     }
 
     @Override
