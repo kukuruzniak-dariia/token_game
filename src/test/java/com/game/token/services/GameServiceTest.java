@@ -25,7 +25,7 @@ public class GameServiceTest {
 
     @Test
     public void tokenShouldBeOnSquareFourWhenAfterMovingOnThreeSpaces() {
-        Game game = new Game(true, new Token(1));
+        Game game = new Game(new Token(1));
 
         gameService.moveToken(game, 3);
 
