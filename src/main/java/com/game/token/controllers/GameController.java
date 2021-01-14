@@ -25,4 +25,9 @@ public class GameController {
     public ResponseEntity<Game> moveToken(@RequestBody Game game,  @PathParam("spaces") int spaces) {
         return new ResponseEntity<>(gameService.moveToken(game, spaces), HttpStatus.OK);
     }
+
+    @GetMapping("/roll-a-die")
+    public ResponseEntity<String> rollDie() {
+        return new ResponseEntity<>(String.valueOf(gameService.rollDie()), HttpStatus.OK);
+    }
 }
