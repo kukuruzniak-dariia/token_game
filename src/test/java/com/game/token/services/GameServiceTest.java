@@ -24,11 +24,21 @@ public class GameServiceTest {
     }
 
     @Test
-    public void tokenShouldBeOnSquareFourWhenAfterMovingOnThreeSpaces() {
+    public void tokenShouldBeOnSquareFourWhenWasMovedOnThreeSpaces() {
         Game game = new Game(new Token(1));
 
         gameService.moveToken(game, 3);
 
         assertEquals(4, game.getToken().getPosition());
+    }
+
+    @Test
+    public void tokenShouldBeOnSquareEightWhenWasMovedOnThreeAndFourSpaces() {
+        Game game = new Game(new Token(1));
+
+        gameService.moveToken(game, 3);
+        gameService.moveToken(game, 4);
+
+        assertEquals(8, game.getToken().getPosition());
     }
 }
