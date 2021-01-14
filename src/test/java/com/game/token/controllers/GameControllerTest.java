@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = GameController.class)
@@ -29,8 +29,8 @@ class GameControllerTest {
     public void shouldStartGame() throws Exception {
         mockMvc.perform(get("/game/start")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(Status.IN_PROGRESS.toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token.position").value(1))
+                .andExpect(jsonPath("$.status").value(Status.IN_PROGRESS.toString()))
+                .andExpect(jsonPath("$.token.position").value(1))
                 .andExpect(status().isOk());
     }
 
@@ -47,8 +47,8 @@ class GameControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("spaces", String.valueOf(spaces))
                 .content(json))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(Status.IN_PROGRESS.toString()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token.position").value(expectedPosition))
+                .andExpect(jsonPath("$.status").value(Status.IN_PROGRESS.toString()))
+                .andExpect(jsonPath("$.token.position").value(expectedPosition))
                 .andExpect(status().isOk());
     }
 
@@ -56,7 +56,7 @@ class GameControllerTest {
     public void shouldRollADie() throws Exception {
         mockMvc.perform(get("/game/roll-a-die")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$").isNotEmpty())
                 .andExpect(status().isOk())
                 .andDo(print());
     }
