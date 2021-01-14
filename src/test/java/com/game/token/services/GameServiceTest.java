@@ -47,12 +47,24 @@ public class GameServiceTest {
     }
 
     @Test
-    public void playerShouldWonTheGameIfTokenOnLastSquare() {
+    public void playerShouldWinTheGameIfTokenOnLastSquare() {
         Game game = new Game(new Token(97));
 
         gameService.moveToken(game, 3);
 
         assertEquals(LAST_SQUARE, game.getToken().getPosition());
         assertEquals(Status.COMPLETED, game.getStatus());
+    }
+
+    @Test
+    public void playerShouldNotWinTheGameIfTokenPositionGreaterThanAllowed() {
+        int spaces = 4;
+        int position = LAST_SQUARE - spaces + 1;
+        Game game = new Game(new Token(position));
+
+        gameService.moveToken(game, spaces);
+
+        assertEquals(position, game.getToken().getPosition());
+        assertEquals(Status.IN_PROGRESS, game.getStatus());
     }
 }
