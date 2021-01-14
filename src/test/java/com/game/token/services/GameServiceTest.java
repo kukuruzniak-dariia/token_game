@@ -52,6 +52,6 @@ public class GameServiceTest {
         gameService.moveToken(game, 3);
 
         assertEquals(LAST_SQUARE, game.getToken().getPosition());
-        assertEquals(Status.FINISHED, game.getStatus());
+        assertEquals(Status.COMPLETED, game.getStatus());
     }
 }

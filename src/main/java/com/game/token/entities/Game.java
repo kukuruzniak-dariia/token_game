@@ -9,5 +9,6 @@ public class Game {
 
     public Game(Token token) {
         this.token = token;
+        status = Status.NEW;
     }
 }
