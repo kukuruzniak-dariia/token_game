@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = GameController.class)
@@ -49,5 +50,14 @@ class GameControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.status").value(Status.IN_PROGRESS.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.token.position").value(expectedPosition))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldRollADie() throws Exception {
+        mockMvc.perform(get("/game/roll-a-die")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty())
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 }
