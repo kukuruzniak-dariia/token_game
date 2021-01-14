@@ -13,4 +13,8 @@ public class DefaultGameService implements GameService {
 
         return new Game(true, token);
     }
+
+    @Override
+    public void moveToken(Game game, int position) {
+    }
 }

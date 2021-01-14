@@ -6,4 +6,6 @@ public interface GameService {
     int INITIAL_POSITION = 1;
 
     Game start();
+
+    void moveToken(Game game, int i);
 }

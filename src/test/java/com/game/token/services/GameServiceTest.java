@@ -2,6 +2,7 @@ package com.game.token.services;
 
 import com.game.token.entities.Game;
 
+import com.game.token.entities.Token;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,5 +21,14 @@ public class GameServiceTest {
 
         assertNotNull(game.getToken());
         assertEquals(1, game.getToken().getPosition());
+    }
+
+    @Test
+    public void tokenShouldBeOnSquareFourWhenAfterMovingOnThreeSpaces() {
+        Game game = new Game(true, new Token(1));
+
+        gameService.moveToken(game, 3);
+
+        assertEquals(4, game.getToken().getPosition());
     }
 }
