@@ -5,6 +5,8 @@ import com.game.token.entities.Status;
 import com.game.token.entities.Token;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 public class DefaultGameService implements GameService {
 
@@ -26,7 +28,7 @@ public class DefaultGameService implements GameService {
 
     @Override
     public int rollDie() {
-        return 0;
+        return  new Random().nextInt(6) + 1;
     }
 
     private boolean checkIfTokenCanBeMoved(Token token, int spaces) {
