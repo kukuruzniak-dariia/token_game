@@ -16,10 +16,16 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
-    public void moveToken(final Game game, final int position) {
+    public void moveToken(final Game game, final int spaces) {
         Token token = game.getToken();
-        token.setPosition(token.getPosition() + position);
-        updateGameStatus(game);
+        if (checkIfTokenCanBeMoved(token, spaces)) {
+            token.setPosition(token.getPosition() + spaces);
+            updateGameStatus(game);
+        }
+    }
+
+    private boolean checkIfTokenCanBeMoved(Token token, int spaces) {
+        return token.getPosition() + spaces <= LAST_POSITION;
     }
 
     private void updateGameStatus(final Game game) {

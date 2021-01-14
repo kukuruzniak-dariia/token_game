@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class GameServiceTest {
@@ -65,6 +64,6 @@ public class GameServiceTest {
         gameService.moveToken(game, spaces);
 
         assertEquals(position, game.getToken().getPosition());
-        assertEquals(Status.IN_PROGRESS, game.getStatus());
+        assertNotEquals(Status.COMPLETED, game.getStatus());
     }
 }
