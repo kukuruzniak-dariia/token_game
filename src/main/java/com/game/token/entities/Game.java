@@ -1,8 +1,10 @@
 package com.game.token.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Game {
     private Token token;
     private Status status;

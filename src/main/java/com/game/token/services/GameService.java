@@ -11,7 +11,7 @@ public interface GameService {
 
     Game start();
 
-    void moveToken(Game game, int i);
+    Game moveToken(Game game, int i);
 
     int rollDie();
 }
