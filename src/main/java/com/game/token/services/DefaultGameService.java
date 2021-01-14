@@ -12,7 +12,7 @@ public class DefaultGameService implements GameService {
 
     @Override
     public Game start() {
-        Game game = new Game(new Token(INITIAL_POSITION));
+        Game game = new Game(new Token(INITIAL_TOKEN_POSITION));
         game.setStatus(Status.IN_PROGRESS);
         return game;
     }
@@ -28,15 +28,15 @@ public class DefaultGameService implements GameService {
 
     @Override
     public int rollDie() {
-        return  new Random().nextInt(6) + 1;
+        return new Random().nextInt(MAX_ROLE_A_DIE_RESULT) + 1;
     }
 
     private boolean checkIfTokenCanBeMoved(Token token, int spaces) {
-        return token.getPosition() + spaces <= LAST_POSITION;
+        return token.getPosition() + spaces <= LAST_TOKEN_POSITION;
     }
 
     private void updateGameStatus(final Game game) {
-        if (game.getToken().getPosition() == LAST_POSITION) {
+        if (game.getToken().getPosition() == LAST_TOKEN_POSITION) {
             game.setStatus(Status.COMPLETED);
         }
     }
