@@ -9,7 +9,7 @@ public interface GameService {
 
     Game start();
 
-    Game moveToken(long gameId, int i);
+    Game moveToken(long gameId, int spaces);
 
     int rollDie();
 }

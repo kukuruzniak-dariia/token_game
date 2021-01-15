@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +47,7 @@ public class GameServiceTest {
     @Test
     public void tokenShouldBeOnSquareFourWhenWasMovedOnThreeSpaces() {
         Game game = new Game(1L, new Token(FIRST_SQUARE), Status.IN_PROGRESS);
-        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
+        when(gameRepository.findById(game.getId())).thenReturn(Optional.of(game));
 
         gameService.moveToken(game.getId(), 3);
 
@@ -56,7 +57,7 @@ public class GameServiceTest {
     @Test
     public void tokenShouldBeOnSquareEightWhenWasMovedOnThreeAndFourSpaces() {
         Game game = new Game(1L, new Token(FIRST_SQUARE), Status.IN_PROGRESS);
-        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
+        when(gameRepository.findById(game.getId())).thenReturn(Optional.of(game));
 
         gameService.moveToken(game.getId(), 3);
         gameService.moveToken(game.getId(), 4);
@@ -67,7 +68,7 @@ public class GameServiceTest {
     @Test
     public void playerShouldWinTheGameIfTokenOnLastSquare() {
         Game game = new Game(1L, new Token(97), Status.IN_PROGRESS);
-        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
+        when(gameRepository.findById(game.getId())).thenReturn(Optional.of(game));
 
 
         gameService.moveToken(game.getId(), 3);
@@ -81,7 +82,7 @@ public class GameServiceTest {
         int spaces = 4;
         int position = LAST_SQUARE - spaces + 1;
         Game game = new Game(1L, new Token(position), Status.IN_PROGRESS);
-        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
+        when(gameRepository.findById(game.getId())).thenReturn(Optional.of(game));
 
 
         gameService.moveToken(game.getId(), spaces);
