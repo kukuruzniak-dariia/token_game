@@ -26,8 +26,4 @@ public class Game {
     @OneToOne(cascade = CascadeType.ALL)
     private Token token;
     private Status status;
-
-    public Token getToken() {
-        return token;
-    }
 }
