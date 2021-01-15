@@ -1,9 +1,7 @@
 package com.game.token.services;
 
 import com.game.token.entities.Game;
-import org.springframework.stereotype.Service;
 
-@Service
 public interface GameService {
     int INITIAL_TOKEN_POSITION = 1;
     int LAST_TOKEN_POSITION = 100;
@@ -11,7 +9,7 @@ public interface GameService {
 
     Game start();
 
-    Game moveToken(Game game, int i);
+    Game moveToken(long gameId, int i);
 
     int rollDie();
 }

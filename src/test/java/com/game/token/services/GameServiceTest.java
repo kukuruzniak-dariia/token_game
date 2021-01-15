@@ -1,29 +1,41 @@
 package com.game.token.services;
 
 import com.game.token.entities.Game;
-
 import com.game.token.entities.Status;
 import com.game.token.entities.Token;
+import com.game.token.repositories.GameRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.stream.IntStream;
 
+import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class GameServiceTest {
     private static final int FIRST_SQUARE = 1;
     private static final int LAST_SQUARE = 100;
-    @Autowired
-    private GameService gameService;
+    @Mock
+    private GameRepository gameRepository;
+    private DefaultGameService gameService;
+
+    @BeforeEach
+    public void setUp() {
+        gameService = new DefaultGameService();
+        gameService.setGameRepository(gameRepository);
+    }
 
     @Test
     public void tokenShouldBeOnSquareOneWhenGameIsStarted() {
+        when(gameRepository.save(any(Game.class)))
+                .thenReturn(new Game(1L, new Token(FIRST_SQUARE), Status.IN_PROGRESS));
         Game game = gameService.start();
 
         assertNotNull(game.getToken());
@@ -33,28 +45,32 @@ public class GameServiceTest {
 
     @Test
     public void tokenShouldBeOnSquareFourWhenWasMovedOnThreeSpaces() {
-        Game game = new Game(new Token(FIRST_SQUARE));
+        Game game = new Game(1L, new Token(FIRST_SQUARE), Status.IN_PROGRESS);
+        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
 
-        gameService.moveToken(game, 3);
+        gameService.moveToken(game.getId(), 3);
 
         assertEquals(4, game.getToken().getPosition());
     }
 
     @Test
     public void tokenShouldBeOnSquareEightWhenWasMovedOnThreeAndFourSpaces() {
-        Game game = new Game(new Token(FIRST_SQUARE));
+        Game game = new Game(1L, new Token(FIRST_SQUARE), Status.IN_PROGRESS);
+        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
 
-        gameService.moveToken(game, 3);
-        gameService.moveToken(game, 4);
+        gameService.moveToken(game.getId(), 3);
+        gameService.moveToken(game.getId(), 4);
 
         assertEquals(8, game.getToken().getPosition());
     }
 
     @Test
     public void playerShouldWinTheGameIfTokenOnLastSquare() {
-        Game game = new Game(new Token(97));
+        Game game = new Game(1L, new Token(97), Status.IN_PROGRESS);
+        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
 
-        gameService.moveToken(game, 3);
+
+        gameService.moveToken(game.getId(), 3);
 
         assertEquals(LAST_SQUARE, game.getToken().getPosition());
         assertEquals(Status.COMPLETED, game.getStatus());
@@ -64,9 +80,11 @@ public class GameServiceTest {
     public void playerShouldNotWinTheGameIfTokenPositionGreaterThanAllowed() {
         int spaces = 4;
         int position = LAST_SQUARE - spaces + 1;
-        Game game = new Game(new Token(position));
+        Game game = new Game(1L, new Token(position), Status.IN_PROGRESS);
+        when(gameRepository.findById(game.getId())).thenReturn(java.util.Optional.of(game));
 
-        gameService.moveToken(game, spaces);
+
+        gameService.moveToken(game.getId(), spaces);
 
         assertEquals(position, game.getToken().getPosition());
         assertNotEquals(Status.COMPLETED, game.getStatus());
@@ -77,7 +95,7 @@ public class GameServiceTest {
         int min = 1;
         int max = 6;
 
-        IntStream.range(0,100).forEach(value -> {
+        IntStream.range(0, 100).forEach(value -> {
             int number = gameService.rollDie();
             assertTrue(number >= min);
             assertTrue(number <= max);

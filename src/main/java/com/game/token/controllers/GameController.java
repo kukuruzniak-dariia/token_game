@@ -2,17 +2,20 @@ package com.game.token.controllers;
 
 import com.game.token.entities.Game;
 import com.game.token.services.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(value = "/game")
 public class GameController {
-    @Autowired
+    @Resource
     private GameService gameService;
 
     @GetMapping("/start")
@@ -22,8 +25,8 @@ public class GameController {
     }
 
     @PutMapping("/move-token")
-    public ResponseEntity<Game> moveToken(@RequestBody Game game,  @PathParam("spaces") int spaces) {
-        return new ResponseEntity<>(gameService.moveToken(game, spaces), HttpStatus.OK);
+    public ResponseEntity<Game> moveToken(@PathParam("gameId") int gameId, @PathParam("spaces") int spaces) {
+        return new ResponseEntity<>(gameService.moveToken(gameId, spaces), HttpStatus.OK);
     }
 
     @GetMapping("/roll-a-die")
