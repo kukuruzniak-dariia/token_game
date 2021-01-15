@@ -1,2 +1,4 @@
-katharsis.domainName=http://localhost:8080
-katharsis.pathPrefix=/----
+katharsis:
+    resourcePackage: com.game.token
+    domainName: http://localhost:8080
+    pathPrefix: /json-api/
